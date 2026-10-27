@@ -1,0 +1,55 @@
+package com.servlet;
+
+import java.io.IOException;
+
+import com.DAO.UpdateProfileDAO;
+import com.bean.UserBean;
+
+import jakarta.servlet.ServletContext;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+
+@WebServlet("/UpdateProfile")
+public class UpdateProfileServlet extends HttpServlet {
+
+	@Override
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+				Cookie arr[] = req.getCookies();
+				String fname =null;
+				if(arr==null) {
+					req.setAttribute("msg", "Session Expired");
+					req.getRequestDispatcher("Register.jsp").forward(req, resp);
+					
+				}else {
+			ServletContext	context=	req.getServletContext();
+			UserBean ub = (UserBean) context.getAttribute("ubean");
+			ub.setFname(req.getParameter("uname"));
+			ub.setLname(req.getParameter("ulname"));
+			ub.setMailid(req.getParameter("umail"));
+			ub.setPhone(req.getParameter("uphn"));
+			
+			int rowCount = new UpdateProfileDAO().updateprofile(ub);
+			
+			if(rowCount>0) {
+				req.setAttribute("msg", "Profileupdate");
+				for(Cookie ck:arr) {
+					if("ck1".equals(ck.getName())) {
+						fname =ck.getValue();
+					}
+				}
+				req.setAttribute("fname", fname);
+				req.getRequestDispatcher("UpdateProfile.jsp").forward(req, resp);
+			}
+					
+			}
+		
+			}
+	
+	
+	
+
+}

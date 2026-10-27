@@ -1,0 +1,65 @@
+
+package com.servlet;
+
+import java.io.IOException;
+
+import com.DAO.UpdateProfileDAO;
+import com.bean.UserBean;
+
+import jakarta.servlet.ServletException;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
+
+public class UpdateProfileServlet extends HttpServlet {
+
+    @Override
+    protected void doPost(HttpServletRequest req,
+                          HttpServletResponse resp)
+            throws ServletException, IOException {
+
+        HttpSession session = req.getSession(false);
+
+        // Check whether the user session exists
+        if (session == null) {
+            req.setAttribute("msg", "Session Expired");
+            req.getRequestDispatcher("Register.jsp")
+               .forward(req, resp);
+            return;
+        }
+
+        // Get the logged-in user's bean from the session
+        UserBean ub = (UserBean) session.getAttribute("ubean");
+
+        if (ub == null) {
+            req.setAttribute("msg", "Session Expired");
+            req.getRequestDispatcher("Register.jsp")
+               .forward(req, resp);
+            return;
+        }
+
+        // Get updated values from the form
+        ub.setFname(req.getParameter("uname"));
+        ub.setLname(req.getParameter("ulname"));
+        ub.setMailid(req.getParameter("umail"));
+        ub.setPhone(req.getParameter("uphn"));
+
+        // Update the database
+        int rowCount = new UpdateProfileDAO().updateprofile(ub);
+
+        if (rowCount > 0) {
+            req.setAttribute("msg", "Profile updated successfully");
+            req.setAttribute("fname", ub.getFname());
+
+            req.getRequestDispatcher("UpdateProfile.jsp")
+               .forward(req, resp);
+        } else {
+            req.setAttribute("msg", "Profile update failed");
+            req.setAttribute("fname", ub.getFname());
+
+            req.getRequestDispatcher("UpdateProfile.jsp")
+               .forward(req, resp);
+        }
+    }
+}

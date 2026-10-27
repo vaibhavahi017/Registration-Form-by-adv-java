@@ -1,0 +1,36 @@
+package com.DAO;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+
+import com.bean.UserBean;
+
+public class UpdateProfileDAO {
+	
+	public int updateprofile(UserBean ub) {
+		int rowCount = 0;
+		
+		try {
+			Connection con = DBConnection.getCon();
+			PreparedStatement pstmt = con.prepareStatement("String sql = \"UPDATE registration SET FIRSTNAME=?, \"\r\n"
+					+ "           + \"LASTNAME=?, MAILID=?, PHONE=? \"\r\n"
+					+ "           + \"WHERE USERNAME=?\";");
+			pstmt.setString(1, ub.getFname());
+			pstmt.setString(2, ub.getLname());
+			pstmt.setString(3, ub.getMailid());
+			pstmt.setString(4, ub.getPhone());
+			pstmt.setString(5, ub.getUname());
+			
+
+		System.out.println(rowCount);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return rowCount;
+		
+			}
+
+}

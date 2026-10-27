@@ -1,0 +1,36 @@
+package com.E.servlet;
+
+
+import java.io.IOException;
+import java.util.ArrayList;
+
+import com.E.DAO.ViewProductDAO;
+import com.E.bean.ProductBean;
+
+import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
+
+@WebServlet("/view1")
+public class ViewProductServlet extends HttpServlet {
+	protected void doGet(HttpServletRequest req,HttpServletResponse res) throws ServletException , IOException {
+		HttpSession session = req.getSession(false);
+		if(session==null) {
+			req.getRequestDispatcher("AdminLogin.html").forward(req, res);
+			
+		}else {
+			//ViewProductDAO vdao = new ViewProductDAO();
+			//ArrayList<ProductBean> al = vdao.retriveProduct();
+			//session.setAttribute("productList", al);
+			
+			ArrayList<ProductBean> al = new ViewProductDAO().retriveProduct();
+			session.setAttribute("productList", al);
+			req.getRequestDispatcher("ViewProduct.jsp").forward(req, res);
+		}
+		
+	}
+
+}

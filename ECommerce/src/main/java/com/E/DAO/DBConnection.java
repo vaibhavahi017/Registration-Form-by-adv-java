@@ -1,0 +1,23 @@
+package com.E.DAO;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+
+public class DBConnection {
+	private static Connection con = null;
+	
+	static {
+		try {
+ 		Class.forName(DBinfo.driver);
+		con =DriverManager.getConnection(DBinfo.dburl,DBinfo.dbuname,DBinfo.dbpwd);
+		System.out.println("Database Connected");
+		} catch (Exception e) {
+			
+		}
+		}
+	public static Connection getCon() {
+		return con;
+	}
+
+}

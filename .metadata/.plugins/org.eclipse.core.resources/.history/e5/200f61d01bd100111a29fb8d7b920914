@@ -1,0 +1,16 @@
+package com.E.DAO;
+
+import com.E.bean.AdminBean;
+
+public class AdminLoginDAO  {
+	public AdminBean checkAdminLogin(String uname, String pword) {
+		
+		AdminBean abean = null;
+		
+		return abean;
+		
+		
+	}
+	
+
+}

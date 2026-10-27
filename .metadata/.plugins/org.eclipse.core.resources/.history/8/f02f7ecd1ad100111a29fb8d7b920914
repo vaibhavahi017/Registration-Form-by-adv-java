@@ -1,0 +1,5 @@
+package com.E.DAO;
+
+public class AdminLoginDAO {
+
+}
