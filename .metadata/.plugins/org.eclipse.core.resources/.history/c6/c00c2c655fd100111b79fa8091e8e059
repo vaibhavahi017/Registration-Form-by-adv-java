@@ -1,9 +1,0 @@
-package com.E.DAO;
-
-public interface DBinfo {
-    String driver ="oracle.jdbc.OracleDriver";
-    String DBurl = "jdbc:oracle:thin:@localhost:1521:ORCL";
-    String DBuname ="VAIBHAV09";
-    String Dbpwd ="VAIBHAV09";
-
-}

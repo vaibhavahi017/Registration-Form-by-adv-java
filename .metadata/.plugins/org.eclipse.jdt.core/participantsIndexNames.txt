@@ -1,7 +1,0 @@
-INDEX VERSION 1.134
-E:\Adv-java\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\3228161576.index
-\ECommerce\src\main\java
-E:\Adv-java\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\2592489781.index
-\App8\src\main\java
-E:\Adv-java\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\3242262563.index
-\Ecart\src\main\java

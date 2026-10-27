@@ -1,5 +1,0 @@
-package com.E.DAO;
-
-public interface DBinfo {
-
-}
